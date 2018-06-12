@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
+import { FormsModule } from "@angular/forms";
 
 import { AppComponent } from './app.component';
 import { CardModule } from "./card/card.module";
@@ -17,6 +18,7 @@ import { ModuloRoteador } from "./app.routes";
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     CardModule,
     ModuloRoteador
   ],
