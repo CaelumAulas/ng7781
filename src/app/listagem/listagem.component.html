@@ -1,0 +1,7 @@
+<div class="row mb-4">
+  <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>
+</div>
+<div class="row">
+  <app-card *ngFor="let foto of listaFotos" [foto]="foto" class="col-md-4">
+  </app-card>
+</div>

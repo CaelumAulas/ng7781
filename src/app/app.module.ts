@@ -3,16 +3,22 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
-import { FotoModule } from './foto/foto.module';
+import { CardModule } from "./card/card.module";
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { ListagemComponent } from './listagem/listagem.component';
+import { ModuloRoteador } from "./app.routes";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CadastroComponent,
+    ListagemComponent
   ],
   imports: [
     BrowserModule,
-    FotoModule,
-    HttpClientModule
+    HttpClientModule,
+    CardModule,
+    ModuloRoteador
   ],
   providers: [],
   bootstrap: [AppComponent]

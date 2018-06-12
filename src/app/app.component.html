@@ -2,10 +2,5 @@
   <h1 class="text-center">{{title}}</h1>
 </header>
 <main class="container">
-
-  <div class="row">
-    <app-foto *ngFor="let foto of listaFotos" titulo="{{foto.titulo}}" url="{{foto.url}}" class="col-md-4">
-    </app-foto>
-  </div>
-
+  <router-outlet></router-outlet>
 </main>
