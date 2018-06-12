@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { FotoService } from '../services/foto.service';
+import { Foto } from '../foto/foto';
 
 @Component({
   selector: 'app-listagem',
@@ -8,18 +9,29 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ListagemComponent implements OnInit {
 
-  listaFotos
+  listaFotos: Foto[]
 
-  constructor(conexaoApi: HttpClient) {
+  constructor(private service: FotoService) {
 
-    conexaoApi.get('http://localhost:3000/v1/fotos')
-      .subscribe(
-        fotosApi => this.listaFotos = fotosApi
-        , erro => console.log(erro)
-      )
+    service.listar()
+            .subscribe(
+              fotosApi => this.listaFotos = fotosApi
+              , erro => console.log(erro)
+            )
   }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  removerFoto(foto: Foto){
+
+    this.service.deletar(foto)
+                .subscribe(
+                  () => {
+                    this.listaFotos = this.listaFotos.filter(fotoLista => fotoLista._id != foto._id )
+                    console.log(`Foto ${foto.titulo} apagada com sucesso`)
+                  }
+                  
+                )
   }
 
 }

@@ -8,6 +8,7 @@ import { CardModule } from "./card/card.module";
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ListagemComponent } from './listagem/listagem.component';
 import { ModuloRoteador } from "./app.routes";
+import { FotoService } from "./services/foto.service";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { ModuloRoteador } from "./app.routes";
     CardModule,
     ModuloRoteador
   ],
-  providers: [],
+  providers: [ FotoService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

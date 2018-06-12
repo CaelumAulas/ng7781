@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Foto } from '../foto/foto';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FotoService } from '../services/foto.service';
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-cadastro',
@@ -12,24 +13,44 @@ export class CadastroComponent implements OnInit {
   foto: Foto = {
     url: '',
     titulo: '',
-    descricao: ''
+    descricao: '',
+    _id: ''
   }
 
-  constructor(private conexaoApi: HttpClient){}
+  constructor(private service: FotoService
+              ,private rotaAtiva: ActivatedRoute){}
 
-  ngOnInit(){}
+  ngOnInit(){
+
+    this.rotaAtiva.params.subscribe(
+      parametrosDaRota => {
+        if(parametrosDaRota.fotoId){
+          this.service.obterFoto(parametrosDaRota.fotoId)
+                      .subscribe(
+                        fotoApi => this.foto = fotoApi
+                      )
+        }
+      }
+    )
+  }
 
   enviarFoto(){
 
-    this.conexaoApi.post('http://localhost:3000/v1/fotos', 
-                        this.foto, {
-                          headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-                          , observe: "response" //para pegar a resposta Http
-                      })
-                    .subscribe(
-                      (resposta) => console.log(resposta)
-                      ,
-                      erro => console.log(erro)
-                    )
+    if(this.foto._id){
+
+      this.service.atualizar(this.foto)
+                  .subscribe(
+                    () => console.log(`${this.foto.titulo} atualizada com sucesso`)
+                  )
+
+    } 
+    else {
+      this.service.cadastrar(this.foto)
+                  .subscribe(
+                    (resposta) => console.log(resposta)
+                    ,
+                    erro => console.log(erro)
+                  )
+    }
   }
 }
