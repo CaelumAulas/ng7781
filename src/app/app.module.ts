@@ -10,7 +10,7 @@ import { ListagemComponent } from './listagem/listagem.component';
 import { ModuloRoteador } from "./app.routes";
 import { FotoService } from "./services/foto.service";
 import { MensagemComponent } from "./mensagem/mensagem.component";
-import { FiltroPorTituloPipe } from "./listagem/filtroPorTitulo.pipe";
+import { FiltroPorTituloPipe } from "./listagem/filtroportitulo.pipe";
 
 @NgModule({
   declarations: [
@@ -28,7 +28,7 @@ import { FiltroPorTituloPipe } from "./listagem/filtroPorTitulo.pipe";
     CardModule,
     ModuloRoteador
   ],
-  providers: [ FotoService ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -54,7 +54,12 @@ export class CadastroComponent implements OnInit {
         if(parametrosDaRota.fotoId){
           this.service.obterFoto(parametrosDaRota.fotoId)
                       .subscribe(
-                        fotoApi => this.foto = fotoApi
+                        fotoApi => {
+                          this.foto = fotoApi
+                          this.formCadastro.get('titulo').setValue(fotoApi.titulo)
+                          this.formCadastro.get('url').setValue(fotoApi.url)
+                          this.formCadastro.get('descricao').setValue(fotoApi.descricao)
+                        }
                       )
         }
       }
@@ -62,6 +67,10 @@ export class CadastroComponent implements OnInit {
   }
 
   enviarFoto(){
+
+    this.foto.titulo = this.formCadastro.get('titulo').value
+    this.foto.url = this.formCadastro.get('url').value
+    this.foto.descricao = this.formCadastro.get('descricao').value
 
     if(this.foto._id){
 

@@ -7,7 +7,7 @@
   <form [formGroup]="formCadastro" class="col-md-7" (ngSubmit)="enviarFoto()">
     <div class="form-group">
       <label for="titulo">Titulo</label>
-      <input formControlName="titulo" required [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control" autocomplete="off">
+      <input formControlName="titulo" type="text" class="form-control" autocomplete="off">
       <div *ngIf="titulo.errors && titulo.touched">
         <app-mensagem *ngIf="titulo.errors['required']" [tipo]="mensagemTipoEnum.Perigo">
           Este campo é obrigatório
@@ -21,7 +21,7 @@
 
     <div class="form-group">
       <label for="url">URL</label>
-      <input formControlName="url" required [(ngModel)]="foto.url" name="url" type="text" class="form-control">
+      <input formControlName="url" type="text" class="form-control">
       <app-mensagem *ngIf="formCadastro.controls['url'].invalid && formCadastro.controls['url'].touched" [tipo]="mensagemTipoEnum.Perigo">
         Este campo é obrigatório
       </app-mensagem>
@@ -29,7 +29,7 @@
 
     <div class="form-group">
       <label for="descricao">Descrição</label>
-      <textarea formControlName="descricao" [(ngModel)]="foto.descricao" name="descricao" class="form-control"></textarea>
+      <textarea formControlName="descricao" class="form-control"></textarea>
     </div>
 
     <a routerLink="" class="btn btn-secondary">Voltar</a>

@@ -7,7 +7,9 @@ import { MensagemTipo } from "../mensagem/mensagem.component";
 
 const url = 'http://localhost:3000/v1/fotos/'
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class FotoService {
 
         constructor(private conexaoApi: HttpClient){}
