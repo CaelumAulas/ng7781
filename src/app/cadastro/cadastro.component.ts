@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Foto } from '../foto/foto';
 import { FotoService } from '../services/foto.service';
 import { ActivatedRoute, Router } from "@angular/router";
-import { MensagemTipo, MensagemComponent } from "../mensagem/mensagem.component";
 
 @Component({
   selector: 'app-cadastro',
@@ -21,8 +20,8 @@ export class CadastroComponent implements OnInit {
   // @ViewChild('mensagemCpn')
   // mensagemCpn: MensagemComponent
   
-  mensagemTipo
-  mensagemTexto
+  mensagemTipo: string
+  mensagemTexto: string
 
   constructor(private service: FotoService
               ,private rotaAtiva: ActivatedRoute
@@ -48,10 +47,10 @@ export class CadastroComponent implements OnInit {
 
       this.service.atualizar(this.foto)
                   .subscribe(
-                    () => {
+                    mensagemApi => {
 
-                      this.mensagemTexto = `${this.foto.titulo} alterada com sucesso`
-                      this.mensagemTipo = MensagemTipo.Alerta
+                      this.mensagemTexto = mensagemApi.texto
+                      this.mensagemTipo = mensagemApi.tipo
                       
                       setTimeout(() => {
                         this.roteador.navigate([''])                     
@@ -63,10 +62,10 @@ export class CadastroComponent implements OnInit {
     else {
       this.service.cadastrar(this.foto)
                   .subscribe(
-                    (fotoId) => {
+                    mensagemApi => {
                       
-                      this.mensagemTexto = `${this.foto.titulo} cadastrada com sucesso ${fotoId}`
-                      this.mensagemTipo = MensagemTipo.Sucesso
+                      this.mensagemTexto = mensagemApi.texto
+                      this.mensagemTipo = mensagemApi.tipo
 
                       this.foto.titulo = ''
                       this.foto.url = ''
