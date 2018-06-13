@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Foto } from '../foto/foto';
 import { FotoService } from '../services/foto.service';
 import { ActivatedRoute, Router } from "@angular/router";
+import { MensagemTipo } from "../mensagem/mensagem.component";
 
 @Component({
   selector: 'app-cadastro',
@@ -19,6 +20,8 @@ export class CadastroComponent implements OnInit {
 
   // @ViewChild('mensagemCpn')
   // mensagemCpn: MensagemComponent
+
+  mensagemTipoEnum = MensagemTipo
   
   mensagemTipo: string
   mensagemTexto: string
