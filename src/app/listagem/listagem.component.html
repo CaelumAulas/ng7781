@@ -5,11 +5,16 @@
 </div>
 <div class="row mb-4">
   <div class="col-md-12">
-    <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>
+    <form class="input-group">
+      <span class="input-group-prepend">
+        <a routerLink="/cadastro" class="btn btn-primary">Nova Foto</a>
+      </span>
+      <input (input)="true" #inputBusca type="search" class="form-control">
+    </form>
   </div>
 </div>
 <div class="row">
-  <app-card *ngFor="let foto of listaFotos" [foto]="foto" class="col-md-4">
+  <app-card *ngFor="let foto of listaFotos | filtroPorTitulo:inputBusca.value" [foto]="foto" class="col-md-3">
     <button (click)="removerFoto(foto)" class="btn btn-danger">Remover</button>
     <a [routerLink]="['/cadastro', foto._id]" class="btn btn-primary">Editar</a>
   </app-card>

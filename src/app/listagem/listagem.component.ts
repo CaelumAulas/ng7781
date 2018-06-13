@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FotoService } from '../services/foto.service';
 import { Foto } from '../foto/foto';
-import { MensagemTipo } from "../mensagem/mensagem.component";
 
 @Component({
   selector: 'app-listagem',
@@ -10,9 +9,9 @@ import { MensagemTipo } from "../mensagem/mensagem.component";
 })
 export class ListagemComponent implements OnInit {
 
-  listaFotos: Foto[]
-  mensagemTexto
-  mensagemTipo
+  listaFotos: Foto[] = []
+  mensagemTexto = ''
+  mensagemTipo = ''
 
   constructor(private service: FotoService) {
 
