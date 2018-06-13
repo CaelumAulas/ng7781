@@ -1,3 +1,8 @@
+<div class="row" *ngIf="mensagemTexto">
+  <app-mensagem #mensagemCpn class="col-md-12" [tipo]="mensagemTipo">
+    {{mensagemTexto}}
+  </app-mensagem>
+</div>
 <div class="row">
   <form class="col-md-7" (ngSubmit)="enviarFoto()">
     <div class="form-group">
@@ -20,7 +25,7 @@
     <button class="btn btn-primary">Salvar</button>
   </form>
   <aside class="col-md-5">
-    <app-card [foto]="foto"></app-card>
+    <app-card *ngIf="foto.url" [foto]="foto"></app-card>
   </aside>
 </div>
 

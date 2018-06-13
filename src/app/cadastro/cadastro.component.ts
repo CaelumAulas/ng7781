@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Foto } from '../foto/foto';
 import { FotoService } from '../services/foto.service';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MensagemTipo, MensagemComponent } from "../mensagem/mensagem.component";
 
 @Component({
   selector: 'app-cadastro',
@@ -17,8 +18,15 @@ export class CadastroComponent implements OnInit {
     _id: ''
   }
 
+  // @ViewChild('mensagemCpn')
+  // mensagemCpn: MensagemComponent
+  
+  mensagemTipo
+  mensagemTexto
+
   constructor(private service: FotoService
-              ,private rotaAtiva: ActivatedRoute){}
+              ,private rotaAtiva: ActivatedRoute
+            , private roteador: Router){}
 
   ngOnInit(){
 
@@ -40,14 +48,34 @@ export class CadastroComponent implements OnInit {
 
       this.service.atualizar(this.foto)
                   .subscribe(
-                    () => console.log(`${this.foto.titulo} atualizada com sucesso`)
+                    () => {
+
+                      this.mensagemTexto = `${this.foto.titulo} alterada com sucesso`
+                      this.mensagemTipo = MensagemTipo.Alerta
+                      
+                      setTimeout(() => {
+                        this.roteador.navigate([''])                     
+                      }, 2500);
+                    }
                   )
 
     } 
     else {
       this.service.cadastrar(this.foto)
                   .subscribe(
-                    (resposta) => console.log(resposta)
+                    (fotoId) => {
+                      
+                      this.mensagemTexto = `${this.foto.titulo} cadastrada com sucesso ${fotoId}`
+                      this.mensagemTipo = MensagemTipo.Sucesso
+
+                      this.foto.titulo = ''
+                      this.foto.url = ''
+                      this.foto.descricao = ''
+
+                      setTimeout(() => {
+                        this.mensagemTexto = ''
+                      }, 2500);
+                    }
                     ,
                     erro => console.log(erro)
                   )
