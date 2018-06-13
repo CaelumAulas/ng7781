@@ -3,6 +3,7 @@ import { Foto } from '../foto/foto';
 import { FotoService } from '../services/foto.service';
 import { ActivatedRoute, Router } from "@angular/router";
 import { MensagemTipo } from "../mensagem/mensagem.component";
+import { FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,13 +23,29 @@ export class CadastroComponent implements OnInit {
   // mensagemCpn: MensagemComponent
 
   mensagemTipoEnum = MensagemTipo
-  
   mensagemTipo: string
   mensagemTexto: string
 
+  formCadastro: FormGroup 
+
+  titulo = new FormControl('', Validators.compose([
+                                  Validators.required,
+                                  Validators.minLength(10)
+                                ]))
+
   constructor(private service: FotoService
               ,private rotaAtiva: ActivatedRoute
-            , private roteador: Router){}
+              ,private roteador: Router
+              ,private formBuilder: FormBuilder){
+
+            this.formCadastro = formBuilder.group({
+              titulo: this.titulo,
+              url: ['', Validators.required],
+              descricao: ''
+            })
+
+
+    }
 
   ngOnInit(){
 

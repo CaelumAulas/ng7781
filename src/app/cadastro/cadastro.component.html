@@ -4,26 +4,32 @@
   </app-mensagem>
 </div>
 <div class="row">
-  <form #formCadastro="ngForm" class="col-md-7" (ngSubmit)="enviarFoto()">
+  <form [formGroup]="formCadastro" class="col-md-7" (ngSubmit)="enviarFoto()">
     <div class="form-group">
       <label for="titulo">Titulo</label>
-      <input #inputTitulo="ngModel" required [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control">
-      <app-mensagem *ngIf="inputTitulo.invalid && inputTitulo.touched" [tipo]="mensagemTipoEnum.Perigo">
-        Este campo é obrigatório
-      </app-mensagem>
+      <input formControlName="titulo" required [(ngModel)]="foto.titulo" name="titulo" type="text" class="form-control" autocomplete="off">
+      <div *ngIf="titulo.errors && titulo.touched">
+        <app-mensagem *ngIf="titulo.errors['required']" [tipo]="mensagemTipoEnum.Perigo">
+          Este campo é obrigatório
+        </app-mensagem>
+        <app-mensagem *ngIf="titulo.errors['minlength']" [tipo]="mensagemTipoEnum.Perigo">
+          {{titulo.errors['minlength'].actualLength}}
+          de no mínimo {{titulo.errors['minlength'].requiredLength}} caracteres
+        </app-mensagem>
+      </div>
     </div>
 
     <div class="form-group">
       <label for="url">URL</label>
-      <input #inputUrl="ngModel" required [(ngModel)]="foto.url" name="url" type="text" class="form-control">
-      <app-mensagem *ngIf="inputUrl.invalid && inputUrl.touched" [tipo]="mensagemTipoEnum.Perigo">
+      <input formControlName="url" required [(ngModel)]="foto.url" name="url" type="text" class="form-control">
+      <app-mensagem *ngIf="formCadastro.controls['url'].invalid && formCadastro.controls['url'].touched" [tipo]="mensagemTipoEnum.Perigo">
         Este campo é obrigatório
       </app-mensagem>
     </div>
 
     <div class="form-group">
       <label for="descricao">Descrição</label>
-      <textarea [(ngModel)]="foto.descricao" name="descricao" class="form-control"></textarea>
+      <textarea formControlName="descricao" [(ngModel)]="foto.descricao" name="descricao" class="form-control"></textarea>
     </div>
 
     <a routerLink="" class="btn btn-secondary">Voltar</a>
